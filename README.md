@@ -1,16 +1,29 @@
-# mobile_app
+# Qiosk-Mobileapp
 
-A new Flutter project.
+De mobileapp van het Qiosk project voor Van Roey.
+![qioskfinaal](https://user-images.githubusercontent.com/57891540/149908156-5fc9e9c0-2ab2-4e29-8bc5-0ecb3dde3572.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+TeamNr: D2
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+TeamNaam: Qiosk
+
+Opdrachtgever: Van Roey
+
+TeamCoach: Kristine Mangelschots
+
+Teamleden: Alex Coulon, Ajla Habota, Gregory Claes, Stef van Gool, Ruben Boone & Albert Baffour Awuah
+
+Teamleider: Alex Coulon
+
+Documentbeheerder: Albert Baffour Awuah
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Technische uitleg:
+lorem ipsum dolor
