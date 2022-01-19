@@ -1,5 +1,5 @@
-name: mobile_app
-description: A new Flutter project.
+name: Qiosk
+description: An application to view and create how long you have been standing at a kiosk.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
