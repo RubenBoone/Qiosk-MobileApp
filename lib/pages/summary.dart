@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 //This page show a summary of the vistor's behaviour
 class SummaryPage extends StatefulWidget {
