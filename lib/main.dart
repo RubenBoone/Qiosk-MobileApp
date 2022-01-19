@@ -1,3 +1,4 @@
+import 'package:Qiosk/pages/login.dart';
 import 'package:flutter/material.dart';
 import './widgets/navigation.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: const BottomNavigationTemplate(),
+      home: LoginPage(),
     );
   }
 }

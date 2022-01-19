@@ -1,0 +1,7 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../models/user.dart';
+
+class Api {
+  static String server = 'dull-panda-56.loca.lt';
+} 
