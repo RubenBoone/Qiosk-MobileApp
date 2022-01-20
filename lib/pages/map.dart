@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import '../main.dart';
+
 //This page shows a blueprint of the building
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -20,7 +22,8 @@ class _MapPageState extends State<MapPage> {
             padding: const EdgeInsets.all(5.0),
             margin:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-            child: ListView(
+            child: ScrollConfiguration(
+                behavior: MyBehavior(),child: ListView(
               children: const [
                 Center(
                     child: Text("Grondplan",
@@ -36,6 +39,6 @@ class _MapPageState extends State<MapPage> {
                   height: 50,
                 )
               ]
-            )));
+            ))));
   }
 }

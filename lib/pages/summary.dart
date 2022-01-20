@@ -3,6 +3,8 @@ import 'package:Qiosk/widgets/table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 //This page show a summary of the vistor's behaviour
 class SummaryPage extends StatefulWidget {
   const SummaryPage({Key? key}) : super(key: key);
@@ -20,24 +22,24 @@ class _SummaryPageState extends State<SummaryPage> {
             padding: const EdgeInsets.all(5.0),
             margin:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-            child: ListView(
-              children: const [
-                Center(
-                    child: Text("Bezoekrapport",
-                        style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF575757)))),
-                SizedBox(
-                    height: 20,
-                    width: 300,
-                    child: Divider(color: Color(0XFFFF6A00))),
-                MyDataTable(),
-                SizedBox(
-                  height: 50,
-                ),
-                MyTable()          
-              ]
-            )));
+            child: ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: ListView(children: const [
+                  Center(
+                      child: Text("Bezoekrapport",
+                          style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF575757)))),
+                  SizedBox(
+                      height: 20,
+                      width: 300,
+                      child: Divider(color: Color(0XFFFF6A00))),
+                  MyDataTable(),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  MyTable()
+                ]))));
   }
 }
