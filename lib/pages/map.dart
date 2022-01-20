@@ -1,3 +1,4 @@
+import 'package:Qiosk/pages/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -16,35 +17,25 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
         backgroundColor: const Color(0xFFE4E4E4),
         body: Container(
-            child: Column(
-          children: [
-            //Image.asset('assets/images/header.png'),
-            Center(
-              child: Image.asset('assets/images/qiosk.png'),
-            ),
-            Text("Login",
-                style: TextStyle(fontSize: 40, color: Color(0xFF575757))),
-            Container(
-                width: 300,
-                child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Gebruikersnaam'))),
-            Container(
-                width: 300,
-                child: TextFormField(
-                    decoration: InputDecoration(labelText: 'Wachtwoord'))),
-            Container(
-                margin: EdgeInsets.only(left: 55, top: 10),
-                alignment: Alignment.centerLeft,
-                child: ElevatedButton(
-                    onPressed: () {
-                      
-                    },
-                    child: Text('Inloggen'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0XFFFF6A00),
-                      shadowColor: Color(0XFF575757),
-                    )))
-          ],
-        )));
+            padding: const EdgeInsets.all(5.0),
+            margin:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+            child: ListView(
+              children: const [
+                Center(
+                    child: Text("Grondplan",
+                        style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF575757)))),
+                SizedBox(
+                    height: 20,
+                    width: 300,
+                    child: Divider(color: Color(0XFFFF6A00))),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            )));
   }
 }
