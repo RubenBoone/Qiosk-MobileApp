@@ -1,4 +1,5 @@
 import 'package:Qiosk/pages/home.dart';
+import 'package:Qiosk/pages/map.dart';
 import 'package:Qiosk/pages/summary.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   //Navigation opties
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
+    MapPage(),
     SummaryPage()
   ];
 
@@ -28,22 +30,39 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: 
+      Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0XFF575757),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(Icons.map),
-            label: 'Summary',
+            label: 'Grondplan',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Rapport',
+          ), 
+          //Only show when logged as admin
+          BottomNavigationBarItem(
+            icon: Icon(Icons.admin_panel_settings),
+            label: 'Admin',
+          ), 
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'Afmelden',
           )
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.white,
+        selectedItemColor: const Color(0XFFFF6A00),
         onTap: _onItemTapped,
       ),
     );
