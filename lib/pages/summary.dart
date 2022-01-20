@@ -37,7 +37,7 @@ class _SummaryPageState extends State<SummaryPage> {
                   height: 50,
                 ),
                 MyTable()          
-              ],
+              ]
             )));
   }
 }

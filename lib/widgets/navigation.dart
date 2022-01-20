@@ -68,7 +68,7 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
         unselectedItemColor: Colors.white,
         selectedItemColor: const Color(0XFFFF6A00),
         onTap: _onItemTapped,
-      ),
+      )
     );
   }
 }
