@@ -34,8 +34,8 @@ class _MapPageState extends State<MapPage> {
                     child: Divider(color: Color(0XFFFF6A00))),
                 SizedBox(
                   height: 50,
-                ),
-              ],
+                )
+              ]
             )));
   }
 }
