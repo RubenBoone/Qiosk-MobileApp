@@ -1,4 +1,6 @@
+import 'package:Qiosk/pages/admin.dart';
 import 'package:Qiosk/pages/home.dart';
+import 'package:Qiosk/pages/login.dart';
 import 'package:Qiosk/pages/map.dart';
 import 'package:Qiosk/pages/summary.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,9 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     MapPage(),
-    SummaryPage()
+    SummaryPage(),
+    AdminPage(),
+    LoginPage()
   ];
 
   void _onItemTapped(int index) {
