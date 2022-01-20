@@ -13,13 +13,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Qiosk App',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity
-      ),
-      home: LoginPage(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Qiosk App',
+        theme: ThemeData(
+            primarySwatch: Colors.orange,
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+        home: const SafeArea(
+            left: true,
+            top: true,
+            right: true,
+            bottom: true,
+            child: BottomNavigationTemplate()));
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
 
