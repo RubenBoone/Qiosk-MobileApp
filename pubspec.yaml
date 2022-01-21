@@ -71,6 +71,7 @@ flutter:
     - assets/images/qiosk.png
     - assets/images/header.png
     - assets/images/engineerExperienceCenter.jpg
+    - assets/images/Blueprint.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
