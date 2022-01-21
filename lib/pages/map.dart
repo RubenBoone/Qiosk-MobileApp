@@ -23,22 +23,36 @@ class _MapPageState extends State<MapPage> {
             margin:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
             child: ScrollConfiguration(
-                behavior: MyBehavior(),child: ListView(
-              children: const [
-                Center(
-                    child: Text("Grondplan",
-                        style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF575757)))),
-                SizedBox(
-                    height: 20,
-                    width: 300,
-                    child: Divider(color: Color(0XFFFF6A00))),
-                SizedBox(
-                  height: 50,
-                )
-              ]
-            ))));
+                behavior: MyBehavior(),
+                child: ListView(children: [
+                  const Center(
+                      child: Text("Grondplan",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF575757)))),
+                  const SizedBox(
+                      height: 20,
+                      width: 300,
+                      child: Divider(color: Color(0XFFFF6A00))),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Center(
+                    child: Image.asset('assets/images/Blueprint.png'),
+                  ),
+                  const Center(
+                    child: ListTile(
+                      title: Text("Kiosk 1"),
+                      subtitle: Text("Hier vind je van alles over drones"),
+                    ),
+                  ),
+                  const Center(
+                    child: ListTile(
+                      title: Text("Kiosk 2"),
+                      subtitle: Text("Deze kiosk geeft een voorbeeld van ..."),
+                    ),
+                  )
+                ]))));
   }
 }

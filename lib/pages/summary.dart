@@ -26,9 +26,9 @@ class _SummaryPageState extends State<SummaryPage> {
                 behavior: MyBehavior(),
                 child: ListView(children: const [
                   Center(
-                      child: Text("Bezoekrapport",
+                      child: Text("Bezoekersrapport",
                           style: TextStyle(
-                              fontSize: 35,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF575757)))),
                   SizedBox(

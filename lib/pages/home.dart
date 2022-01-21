@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
                   const Center(
                       child: Text("Home",
                           style: TextStyle(
-                              fontSize: 40,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF575757)))),
                   const SizedBox(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 import '../main.dart';
 
@@ -30,9 +31,10 @@ class _LoginPageState extends State<LoginPage> {
                     Center(
                       child: Image.asset('assets/images/qiosk.png'),
                     ),
-                    const Text("Login",
-                        style:
-                            TextStyle(fontSize: 40, color: Color(0xFF575757))),
+                    const Center(
+                        child: Text("Login",
+                            style: TextStyle(
+                                fontSize: 40, color: Color(0xFF575757)))),
                     SizedBox(
                         width: 300,
                         child: TextFormField(
@@ -44,15 +46,15 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: const InputDecoration(
                                 labelText: 'Wachtwoord'))),
                     Container(
-                        margin: const EdgeInsets.only(left: 55, top: 10),
-                        alignment: Alignment.centerLeft,
+                        margin: const EdgeInsets.only(top: 10),
+                        child: Center(
                         child: ElevatedButton(
                             onPressed: () {},
                             child: const Text('Inloggen'),
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0XFFFF6A00),
                               shadowColor: const Color(0XFF575757),
-                            )))
+                            ))))
                   ],
                 ))));
   }
