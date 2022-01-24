@@ -1,8 +1,8 @@
-import 'package:Qiosk/pages/admin.dart';
-import 'package:Qiosk/pages/home.dart';
-import 'package:Qiosk/pages/login.dart';
-import 'package:Qiosk/pages/map.dart';
-import 'package:Qiosk/pages/summary.dart';
+import 'package:qiosk/pages/admin.dart';
+import 'package:qiosk/pages/home.dart';
+import 'package:qiosk/pages/login.dart';
+import 'package:qiosk/pages/map.dart';
+import 'package:qiosk/pages/summary.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationTemplate extends StatefulWidget {

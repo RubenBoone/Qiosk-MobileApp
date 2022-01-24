@@ -1,4 +1,4 @@
-import 'package:Qiosk/main.dart';
+import 'package:qiosk/main.dart';
 import 'package:flutter/material.dart';
 
 //This page shows a blueprint of the building with information about each kiosk
@@ -34,16 +34,16 @@ class HomePage extends StatelessWidget {
                               fontSize: 20,
                               color: Color(0xFF575757)))),
                   const Center(
-                      child: Text("ERVAAR DE MAGIE VAN IT" + '\n',
+                      child: Text("ERVAAR DE MAGIE VAN IT" '\n',
                           style: TextStyle(
                               height: 1.3,
                               fontSize: 20,
                               color: Color(0xFF575757)))),
                   const Center(
                       child: Text(
-                    "Welkom in het Experience Center van Van Roey! In ons Experience Center zijn talloze toepassingen te ervaren en te aanschouwen om als bedrijf een digitale dynamiek op te bouwen." +
-                        '\n\n' +
-                        "Geen futuristische fictie van wat zou kunnen komen, wel een actieve en interactieve voorstelling van toekomstbestendige technologie die al marktmatuur is, voor democratische prijzen." +
+                    "Welkom in het Experience Center van Van Roey! In ons Experience Center zijn talloze toepassingen te ervaren en te aanschouwen om als bedrijf een digitale dynamiek op te bouwen."
+                        '\n\n'
+                        "Geen futuristische fictie van wat zou kunnen komen, wel een actieve en interactieve voorstelling van toekomstbestendige technologie die al marktmatuur is, voor democratische prijzen."
                         '\n',
                     style: TextStyle(
                         height: 1.3, fontSize: 15, color: Color(0xFF575757)),
