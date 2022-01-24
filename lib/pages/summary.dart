@@ -1,5 +1,5 @@
-import 'package:Qiosk/widgets/datatable.dart';
-import 'package:Qiosk/widgets/table.dart';
+import 'package:qiosk/widgets/datatable.dart';
+import 'package:qiosk/widgets/table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

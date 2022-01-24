@@ -1,7 +1,8 @@
-import 'package:Qiosk/pages/login.dart';
+import 'package:qiosk/models/kiosk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:qiosk/apis/api';
 
 import '../main.dart';
 
@@ -14,6 +15,24 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  List<Kiosk> kioskList = [];
+  int count = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getKiosks();
+  }
+
+  void _getKiosks() {
+    Api.fetchKiosks().then((result) {
+      setState(() {
+        kioskList = result;
+        count = result.length;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +60,8 @@ class _MapPageState extends State<MapPage> {
                   Center(
                     child: Image.asset('assets/images/Blueprint.png'),
                   ),
-                  const Center(
-                    child: ListTile(
+                  Center(child: SizedBox(child: _kioskListItems()))
+                  /*ListTile(
                       title: Text("Kiosk 1"),
                       subtitle: Text("Hier vind je van alles over drones"),
                     ),
@@ -51,8 +70,21 @@ class _MapPageState extends State<MapPage> {
                     child: ListTile(
                       title: Text("Kiosk 2"),
                       subtitle: Text("Deze kiosk geeft een voorbeeld van ..."),
-                    ),
-                  )
+                    ),*/
                 ]))));
+  }
+
+  ListView _kioskListItems() {
+    return ListView.builder(
+        itemCount: count,
+        itemBuilder: (BuildContext context, int position) {
+          return Card(
+              color: Colors.white,
+              elevation: 2.0,
+              child: ListTile(
+                  title: Text(kioskList[position].name),
+                  subtitle: Text(kioskList[position].description),
+                  onTap: () {}));
+        });
   }
 }

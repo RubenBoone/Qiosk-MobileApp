@@ -23,7 +23,7 @@ class MyTable extends StatelessWidget {
                 lineHeight: 20.0,
                 animationDuration: 2000,
                 percent: 0.7,
-                center: Text("70.0%"),
+                center: const Text("70.0%"),
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 progressColor: Colors.greenAccent,
               )
@@ -42,7 +42,7 @@ class MyTable extends StatelessWidget {
                 lineHeight: 20.0,
                 animationDuration: 2000,
                 percent: 0.25,
-                center: Text("25.0%"),
+                center: const Text("25.0%"),
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 progressColor: Colors.greenAccent,
               )
@@ -61,7 +61,7 @@ class MyTable extends StatelessWidget {
                 lineHeight: 20.0,
                 animationDuration: 2000,
                 percent: 0.05,
-                center: Text("5.0%"),
+                center: const Text("5.0%"),
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 progressColor: Colors.greenAccent,
               )

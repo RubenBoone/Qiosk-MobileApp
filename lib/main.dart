@@ -1,4 +1,3 @@
-import 'package:Qiosk/pages/login.dart';
 import 'package:flutter/material.dart';
 import './widgets/navigation.dart';
 

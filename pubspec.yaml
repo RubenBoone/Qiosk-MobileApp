@@ -1,4 +1,4 @@
-name: Qiosk
+name: qiosk
 description: An application to view and create how long you have been standing at a kiosk.
 
 # The following line prevents the package from being accidentally published to
