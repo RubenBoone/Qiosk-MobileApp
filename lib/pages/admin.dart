@@ -69,7 +69,7 @@ class _AdminPageState extends State<AdminPage> {
                         width: 150,
                         child: TextFormField(
                             decoration: const InputDecoration(
-                                labelText: 'Linkerbovenhoek'))),
+                                enabled: false, labelText: 'Linkerbovenhoek'))),
                     ElevatedButton(
                         onPressed: () {},
                         child: const Text('Stel hoekpunt in'),
@@ -83,6 +83,7 @@ class _AdminPageState extends State<AdminPage> {
                         width: 150,
                         child: TextFormField(
                             decoration: const InputDecoration(
+                                enabled: false,
                                 labelText: 'Rechterbovenhoek'))),
                     ElevatedButton(
                         onPressed: () {},
@@ -97,6 +98,7 @@ class _AdminPageState extends State<AdminPage> {
                         width: 150,
                         child: TextFormField(
                             decoration: const InputDecoration(
+                                enabled: false,
                                 labelText: 'Rechteronderhoek'))),
                     ElevatedButton(
                         onPressed: () {},
@@ -111,7 +113,7 @@ class _AdminPageState extends State<AdminPage> {
                         width: 150,
                         child: TextFormField(
                             decoration: const InputDecoration(
-                                labelText: 'Linkeronderhoek'))),
+                                enabled: false, labelText: 'Linkeronderhoek'))),
                     ElevatedButton(
                         onPressed: () {},
                         child: const Text('Stel hoekpunt in'),
@@ -124,12 +126,12 @@ class _AdminPageState extends State<AdminPage> {
                     height: 20,
                   ),
                   ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Voeg kiosk toe'),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFFFF6A00),
-                          shadowColor: const Color(0XFF575757),
-                        ))
+                      onPressed: () {},
+                      child: const Text('Voeg kiosk toe'),
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0XFFFF6A00),
+                        shadowColor: const Color(0XFF575757),
+                      ))
                 ]))));
   }
 }

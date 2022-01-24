@@ -2,7 +2,7 @@ import 'package:qiosk/models/kiosk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:qiosk/apis/api';
+import 'package:qiosk/apis/api.dart';
 
 import '../main.dart';
 
