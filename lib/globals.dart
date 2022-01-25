@@ -1,0 +1,1 @@
+String apiServer = 'https://qioskdotnetapi.azurewebsites.net/api';
