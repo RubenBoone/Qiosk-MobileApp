@@ -2,7 +2,7 @@ import 'package:qiosk/models/kiosk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:qiosk/apis/api.dart';
+import 'package:qiosk/apis/kiosk_api.dart';
 
 import '../main.dart';
 
@@ -25,7 +25,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _getKiosks() {
-    Api.fetchKiosks().then((result) {
+    KioskApi.fetchKiosks().then((result) {
       setState(() {
         kioskList = result;
         count = result.length;

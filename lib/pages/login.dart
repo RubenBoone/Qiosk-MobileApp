@@ -1,19 +1,18 @@
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:qiosk/apis/auth_api.dart';
 import 'package:qiosk/encryption_service.dart';
-import 'package:qiosk/models/userLogin.dart';
+import 'package:qiosk/models/userlogin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
 //This page is shown when you need to log in
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key }) : super(key: key);
+  Future Function() onLogin;
+  LoginPage({Key? key,required this.onLogin}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -39,10 +38,12 @@ getData() async {
     userlogin.isActive = prefs.getBool('isActive')??false;
     userlogin.isAdmin= prefs.getBool('isAdmin')??false;
     userlogin.token = prefs.getString('token')??"";
+    attempted = prefs.getBool('attemptedLogin')??false;
+    emailController.text=prefs.getString('email')??"";
   });
 }
 String? get _errorText {
-  if (attempted && userlogin.token=="") {
+  if (userlogin.password.trim()!="" && userlogin.token=="") {
     return 'Email of wachtwoord is onjuist';
   }
   // return null
@@ -76,6 +77,7 @@ String? get _errorText {
                           controller: emailController,
                             decoration: const InputDecoration(
                                 labelText: 'Email'))),
+                                
                     SizedBox(
                         width: 300,
                         child: TextFormField(
@@ -105,7 +107,9 @@ String? get _errorText {
                         margin: const EdgeInsets.only(top: 10),
                         child: Center(
                         child: ElevatedButton(
-                            onPressed: () {_login();},
+                            onPressed: () {_login();
+                            
+                            },
                             child: const Text('Inloggen'),
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0XFFFF6A00),
@@ -116,31 +120,14 @@ String? get _errorText {
   }
    // ________ FUNCTIONS ________ //
 
-  void _login() {
+   _login() async {
     userlogin.email= emailController.text.trim();
     userlogin.password=encrypt(passwordController.text.trim());
-    AuthApi.authenticate(userlogin).then((result) async {
-      // call the api to 
-      if (mounted) {
-         SharedPreferences prefs = await SharedPreferences.getInstance();
-        setState(()  {
-          userlogin = result;
-         
-          prefs.setInt('userID', userlogin.userID);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+   setState(()  {
           prefs.setString('email', userlogin.email);
-          prefs.setBool('isActive', userlogin.isActive);
-          prefs.setBool('isAdmin', userlogin.isAdmin);
-          prefs.setString('token', userlogin.token);
- 
-          attempted==true;
-          print("ingelogd");
-          
+          prefs.setString('password', userlogin.password);
         });
-      }
-    }
-    );
-    if(userlogin.userID==-1){
-      attempted=true;
-    }
+    widget.onLogin();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:qiosk/apis/auth_api.dart';
 import 'package:qiosk/models/userlogin.dart';
 import 'package:qiosk/pages/admin.dart';
 import 'package:qiosk/pages/home.dart';
@@ -18,15 +19,13 @@ class BottomNavigationTemplate extends StatefulWidget {
 class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   int _selectedIndex = 0;
   UserLogin userlogin = UserLogin(userID: 0, email: "", password: "", isActive: false,isAdmin: false,token: "");
-  bool loggedin = false;
-  //Navigation opties
-  static const  List<Widget> _widgetOptions = <Widget>[
+bool isLoggedIn=false;
  
-    HomePage(),
-    MapPage(),
-    SummaryPage(),
-    LoginPage(),
-    AdminPage(),
+  //Navigation opties
+  static  final List<Widget> _widgetOptions = <Widget>[
+    const HomePage(),
+    const MapPage(),
+    const SummaryPage(),
   ];
 
 
@@ -34,14 +33,19 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
     
     setState(() {
       _selectedIndex = index;
-      _selectedIndex= (userlogin.isAdmin&&userlogin.token!="")&&_selectedIndex==4 ?3:_selectedIndex;
-      _selectedIndex= (userlogin.isAdmin&&userlogin.token!="")&&_selectedIndex==3 ?4:_selectedIndex;
-      _selectedIndex= (userlogin.token=="")&&_selectedIndex==3 ?3:_selectedIndex;
+      if(userlogin.isAdmin&&userlogin.token!=""){_widgetOptions.insert(3, const AdminPage());}
+      if(userlogin.token==""&&_widgetOptions.contains(const AdminPage())){_widgetOptions.remove(const AdminPage());}
       getData();
-     //_selectedIndex= (!userlogin.isAdmin||userlogin.token=="")&&_selectedIndex==3?4:_selectedIndex; 
-      
+      //Afmelden
+      if((userlogin.isActive&&!userlogin.isAdmin&&_selectedIndex==3)||(userlogin.isActive&&userlogin.isAdmin&&_selectedIndex==4))
+      {
+        _logout();
+        _selectedIndex= 0;
+      }
+      getData();
     });
   }
+
   getData() async {
    // get data from shared_preferences
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -53,14 +57,22 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
     userlogin.token = prefs.getString('token')??"";
   });
 }
-
+String? get _logText {
+  if (userlogin.token!="") {
+    return 'Afmelden';
+  }
+  // return null
+  return "Aanmelden";
+}
 //Navigation bar items
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: 
       Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: (_selectedIndex==2&&!userlogin.isActive)? LoginPage(onLogin:()=> _login()) :((_selectedIndex==3&&userlogin.isAdmin)?const AdminPage():_widgetOptions[_selectedIndex]),
+        
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -74,19 +86,19 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
             icon: Icon(Icons.map),
             label: 'Grondplan',
           ),
-          const BottomNavigationBarItem(
+          if(userlogin.isActive) const BottomNavigationBarItem(
             icon: Icon(Icons.article),
             label: 'Rapport',
           ), 
           //Only show when logged as admin
-          const BottomNavigationBarItem(
+          if(userlogin.isAdmin) const BottomNavigationBarItem(
             icon: Icon(Icons.admin_panel_settings),
             label: 'Admin',
             
           ), 
           BottomNavigationBarItem(
             icon: Icon(userlogin.token=="" ?Icons.login:Icons.logout),
-            label: userlogin.token!="" ?'Afmelden':'Aanmelden',
+            label: _logText,
           )
         ],
         currentIndex:_selectedIndex,
@@ -96,4 +108,45 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
       )
     );
   }
+   _login() async {
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+       userlogin.email = prefs.getString('email')??"";
+        userlogin.password = prefs.getString('password')??"";
+ 
+    });
+    
+    AuthApi.authenticate(userlogin).then((result) async {
+      // call the api to 
+      if (mounted) {
+         SharedPreferences prefs = await SharedPreferences.getInstance();
+        setState(()  {
+          userlogin = result;
+         
+          prefs.setInt('userID', userlogin.userID);
+          prefs.setString('email', userlogin.email);
+          prefs.setString('password', "");
+          prefs.setBool('isActive', userlogin.isActive);
+          prefs.setBool('isAdmin', userlogin.isAdmin);
+          prefs.setString('token', userlogin.token);
+ 
+          print("ingelogd");
+          
+        });
+      }
+    }
+    );
+  }
+   _logout() async {
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+          prefs.remove('password');
+          prefs.remove('isActive');
+          prefs.remove('isAdmin');
+          prefs.remove('token');
+          print("uitgelogd");
+          
+        });
+      }
+  
 }
