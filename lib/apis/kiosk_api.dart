@@ -1,13 +1,14 @@
 import 'package:http/http.dart' as http;
+import 'package:qiosk/globals.dart';
 import 'dart:convert';
 import '../models/user.dart';
 import '../models/kiosk.dart';
 
-class Api {
-  static String server = 'https://qioskdotnetapi.azurewebsites.net/api';
+class KioskApi {
+  static String server = apiServer;
  
  static Future<List<User>> fetchUsers() async {
-    var url = Uri.https(server, '/users');
+    var url = Uri.parse(server+'/users');
 
     final response = await http.get(url);
 
@@ -20,7 +21,7 @@ class Api {
   }
 
   static Future<List<Kiosk>> fetchKiosks() async {
-    var url = Uri.https(server, '/kiosks');
+    var url = Uri.parse(server+'/kiosks');
 
     final response = await http.get(url);
     

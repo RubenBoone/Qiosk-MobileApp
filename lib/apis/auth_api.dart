@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:qiosk/globals.dart';
 import 'dart:convert';
 
-import 'package:qiosk/models/userLogin.dart';
+import 'package:qiosk/models/userlogin.dart';
 
 class AuthApi {
   static String server = apiServer;

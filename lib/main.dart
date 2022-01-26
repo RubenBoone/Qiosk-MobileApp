@@ -24,7 +24,9 @@ class MyApp extends StatelessWidget {
             bottom: true,
             child: BottomNavigationTemplate()));
   }
+
 }
+
 
 class MyBehavior extends ScrollBehavior {
   @override
