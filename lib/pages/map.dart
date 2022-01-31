@@ -1,7 +1,5 @@
 import 'package:qiosk/models/kiosk.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:qiosk/apis/kiosk_api.dart';
 
 import '../main.dart';
@@ -74,17 +72,19 @@ class _MapPageState extends State<MapPage> {
                 ]))));
   }
 
-  ListView _kioskListItems() {
-    return ListView.builder(
-        itemCount: count,
-        itemBuilder: (BuildContext context, int position) {
-          return Card(
-              color: Colors.white,
-              elevation: 2.0,
-              child: ListTile(
-                  title: Text(kioskList[position].name),
-                  subtitle: Text(kioskList[position].description),
-                  onTap: () {}));
-        });
+  _kioskListItems() {
+    FutureBuilder(
+        future: KioskApi.fetchKiosks(),
+      builder: (context, AsyncSnapshot snapshot) {
+      if (!snapshot.hasData) {
+        return const Center(child: CircularProgressIndicator());
+      } else {
+        return ListView.builder(
+            itemCount: kioskList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Text(kioskList[index].name);
+            });
+      }
+    });
   }
 }

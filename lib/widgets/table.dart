@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class MyTable extends StatelessWidget {

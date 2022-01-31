@@ -1,8 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:qiosk/encryption_service.dart';
 import 'package:qiosk/models/userlogin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 //This page is shown when you need to log in
+// ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
   Future Function() onLogin;
   LoginPage({Key? key,required this.onLogin}) : super(key: key);
@@ -25,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     TextEditingController emailController= TextEditingController();
     TextEditingController passwordController= TextEditingController();
   @override
+  // ignore: must_call_super
   void initState(){
    _passwordVisible = false;
    getData();
