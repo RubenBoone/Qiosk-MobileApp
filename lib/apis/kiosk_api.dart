@@ -7,16 +7,16 @@ import '../models/kiosk.dart';
 class KioskApi {
   static String server = apiServer;
  
- static Future<List<User>> fetchUsers() async {
-    var url = Uri.parse(server+'/users');
-
-    final response = await http.get(url);
-
+ static Future<User> fetchUser(int id, String token) async {
+    var url = Uri.parse(server + '/users/' + id.toString());
+    
+    final response = await http.get(url, headers: {
+      "Authorization": 'Bearer $token'
+    });
     if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((user) => User.fromJson(user)).toList();
+      return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load users');
+      throw Exception('Failed to load user');
     }
   }
 
@@ -31,5 +31,5 @@ class KioskApi {
     } else {
       throw Exception('Failed to load Kiosks');
     }
-  }
+  }  
 }
