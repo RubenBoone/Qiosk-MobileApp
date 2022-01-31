@@ -6,6 +6,9 @@ String encrypt(String input) {
   var pwd = gibber2 + item2;
   var item3 = pwd.toUpperCase();
   var item4 = item3 + gibber;
-  return item4;
+  var x1=pwd.substring(13,item4.length);
+  var x2=pwd.substring(0,13);
+
+  return x1+x2+"==";
 }
 
