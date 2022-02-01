@@ -11,7 +11,9 @@ class KioskApi {
     var url = Uri.parse(server + '/users/' + id.toString());
     
     final response = await http.get(url, headers: {
-      "Authorization": 'Bearer $token'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
     });
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));

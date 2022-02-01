@@ -20,13 +20,12 @@ class _SummaryPageState extends State<SummaryPage> {
 
   @override
   Future<void> initState() async {
-
     super.initState();
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-setState(() {
-    id = prefs.getInt('userID')??0;
-    token = prefs.getString('token')??"";
-});
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getInt('userID') ?? 0;
+      token = prefs.getString('token') ?? "";
+    });
     _getUser(id); // get the user info using the api
   }
 
@@ -60,7 +59,7 @@ setState(() {
                       height: 20,
                       width: 300,
                       child: Divider(color: Color(0XFFFF6A00))),
-                  DataTable(
+                  Expanded(child: DataTable(
                     columns: <DataColumn>[
                       const DataColumn(
                         label: Text(
@@ -72,7 +71,7 @@ setState(() {
                       ),
                       DataColumn(
                         label: Text(
-                          user!.name,
+                          user!.firstName,
                           style: const TextStyle(color: Color(0xFF575757)),
                         ),
                       ),
@@ -101,7 +100,7 @@ setState(() {
                         ],
                       ),
                     ],
-                  ),
+                  )),
                   const SizedBox(
                     height: 50,
                   ),
