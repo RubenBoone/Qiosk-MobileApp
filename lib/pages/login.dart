@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:qiosk/encryption_service.dart';
 import 'package:qiosk/models/userlogin.dart';
@@ -10,44 +9,52 @@ import '../main.dart';
 // ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
   Future Function() onLogin;
-  LoginPage({Key? key,required this.onLogin}) : super(key: key);
+  LoginPage({Key? key, required this.onLogin}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-    bool _passwordVisible = false;
-    bool attempted = false;
-    UserLogin userlogin = UserLogin(userID: 0, email: "", password: "", isActive: false,isAdmin: false,token: "");
-    TextEditingController emailController= TextEditingController();
-    TextEditingController passwordController= TextEditingController();
+  bool _passwordVisible = false;
+  bool attempted = false;
+  UserLogin userlogin = UserLogin(
+      userID: 0,
+      email: "",
+      password: "",
+      isActive: false,
+      isAdmin: false,
+      token: "");
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   // ignore: must_call_super
-  void initState(){
-   _passwordVisible = false;
-   getData();
-}
-getData() async {
-   // get data from shared_preferences
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  setState(() {
-    userlogin.userID = prefs.getInt('userID')??0;
-    userlogin.email = prefs.getString('email')??"";
-    userlogin.isActive = prefs.getBool('isActive')??false;
-    userlogin.isAdmin= prefs.getBool('isAdmin')??false;
-    userlogin.token = prefs.getString('token')??"";
-    attempted = prefs.getBool('attemptedLogin')??false;
-    emailController.text=prefs.getString('email')??"";
-  });
-}
-String? get _errorText {
-  if (userlogin.password.trim()!="" && userlogin.token=="") {
-    return 'Email of wachtwoord is onjuist';
+  void initState() {
+    _passwordVisible = false;
+    getData();
   }
-  // return null
-  return null;
-}
+
+  getData() async {
+    // get data from shared_preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userlogin.userID = prefs.getInt('userID') ?? 0;
+      userlogin.email = prefs.getString('email') ?? "";
+      userlogin.isActive = prefs.getBool('isActive') ?? false;
+      userlogin.isAdmin = prefs.getBool('isAdmin') ?? false;
+      userlogin.token = prefs.getString('token') ?? "";
+      attempted = prefs.getBool('attemptedLogin') ?? false;
+      emailController.text = prefs.getString('email') ?? "";
+    });
+  }
+
+  String? get _errorText {
+    if (userlogin.password.trim() != "" && userlogin.token == "") {
+      return 'Email of wachtwoord is onjuist';
+    }
+    // return null
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,61 +79,61 @@ String? get _errorText {
                                 fontSize: 40, color: Color(0xFF575757)))),
                     SizedBox(
                         width: 300,
-                        child: TextFormField(                      
-                          controller: emailController,
-                            decoration: const InputDecoration(
-                                labelText: 'Email'))),
-                                
+                        child: TextFormField(
+                            controller: emailController,
+                            decoration:
+                                const InputDecoration(labelText: 'Email'))),
+
                     SizedBox(
                         width: 300,
                         child: TextFormField(
-                          controller: passwordController,
-                            obscureText: !_passwordVisible,//This will obscure text dynamically
+                            controller: passwordController,
+                            obscureText:
+                                !_passwordVisible, //This will obscure text dynamically
                             decoration: InputDecoration(
                                 labelText: 'Wachtwoord',
                                 // Here is key idea
-                                  suffixIcon: IconButton(
-                                      icon: Icon(
-                                          // Based on passwordVisible state choose the icon
-                                          _passwordVisible                                     ? Icons.visibility
-                                          : Icons.visibility_off,
-                                          color: Theme.of(context).primaryColorDark,
-                                          ),
-                                        onPressed: () {
-                                          // Update the state i.e. toogle the state of passwordVisible variable
-                                          setState(() {
-                                              _passwordVisible = !_passwordVisible;
-                                          });
-                                        },
-                                  ),errorText: _errorText
-                                    )
-                                   )
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    // Based on passwordVisible state choose the icon
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Theme.of(context).primaryColorDark,
+                                  ),
+                                  onPressed: () {
+                                    // Update the state i.e. toogle the state of passwordVisible variable
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
                                 ),
+                                errorText: _errorText))),
                     Container(
                         margin: const EdgeInsets.only(top: 10),
                         child: Center(
-                        child: ElevatedButton(
-                            onPressed: () {_login();
-                            
-                            },
-                            child: const Text('Inloggen'),
-                            style: ElevatedButton.styleFrom(
-                              primary: const Color(0XFFFF6A00),
-                              shadowColor: const Color(0XFF575757),
-                            ))))
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  _login();
+                                },
+                                child: const Text('Inloggen'),
+                                style: ElevatedButton.styleFrom(
+                                  primary: const Color(0XFFFF6A00),
+                                  shadowColor: const Color(0XFF575757),
+                                ))))
                   ],
                 ))));
   }
-   // ________ FUNCTIONS ________ //
+  // ________ FUNCTIONS ________ //
 
-   _login() async {
-    userlogin.email= emailController.text.trim();
-    userlogin.password=encrypt(passwordController.text.trim());
+  _login() async {
+    userlogin.email = emailController.text.trim();
+    userlogin.password = encrypt(passwordController.text.trim());
     SharedPreferences prefs = await SharedPreferences.getInstance();
-   setState(()  {
-          prefs.setString('email', userlogin.email);
-          prefs.setString('password', userlogin.password);
-        });
+    setState(() {
+      prefs.setString('email', userlogin.email);
+      prefs.setString('password', userlogin.password);
+    });
     widget.onLogin();
   }
 }

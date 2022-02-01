@@ -41,7 +41,7 @@ class _MapPageState extends State<MapPage> {
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
             child: ScrollConfiguration(
                 behavior: MyBehavior(),
-                child: ListView(children: [
+                child: Expanded(child: ListView(children: [
                   const Center(
                       child: Text("Grondplan",
                           style: TextStyle(
@@ -59,17 +59,7 @@ class _MapPageState extends State<MapPage> {
                     child: Image.asset('assets/images/Blueprint.png'),
                   ),
                   Center(child: SizedBox(child: _kioskListItems()))
-                  /*ListTile(
-                      title: Text("Kiosk 1"),
-                      subtitle: Text("Hier vind je van alles over drones"),
-                    ),
-                  ),
-                  const Center(
-                    child: ListTile(
-                      title: Text("Kiosk 2"),
-                      subtitle: Text("Deze kiosk geeft een voorbeeld van ..."),
-                    ),*/
-                ]))));
+                ])))));
   }
 
   _kioskListItems() {
