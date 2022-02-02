@@ -1,8 +1,13 @@
 import 'package:qiosk/apis/kiosk_api.dart';
+import 'package:qiosk/models/kiosk.dart';
 import 'package:qiosk/models/user.dart';
-import 'package:flutter/material.dart';
+import 'package:qiosk/models/userkiosk.dart';
+import 'package:qiosk/widgets/datatable.dart';
 import 'package:qiosk/widgets/table.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../main.dart';
 
 //This page show a summary of the vistor's behaviour
@@ -14,26 +19,58 @@ class SummaryPage extends StatefulWidget {
 }
 
 class _SummaryPageState extends State<SummaryPage> {
-  User? user;
+  User user = User(
+      companyID: 0,
+      email: "",
+      firstName: "",
+      isActive: false,
+      isAdmin: false,
+      lastName: "",
+      userID: 0,
+      password: "");
+  late SharedPreferences prefs;
   int id = 0;
   String token = "";
+  List<UserKiosk> userKiosks = [];
+  List<Kiosk> kioskList = [];
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      id = prefs.getInt('userID') ?? 0;
-      token = prefs.getString('token') ?? "";
-    });
-    _getUser(id); // get the user info using the api
+    getData();
   }
 
-  void _getUser(int id) {
-    KioskApi.fetchUser(id, token).then((result) {
-      // call the api to fetch the user data
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getInt('userID')!;
+      token = prefs.getString('token')!;
+    });
+    _getUser(id, token);
+    _getUserKiosks(id, token);
+    _getKiosks();
+  }
+
+  void _getUser(id, token) async {
+    await KioskApi.fetchUser(id, token).then((result) {
       setState(() {
         user = result;
+      });
+    });
+  }
+
+  void _getUserKiosks(userid, token) async {
+    await KioskApi.fetchUserKiosk(userid, token).then((result) {
+      setState(() {
+        userKiosks = result;
+      });
+    });
+  }
+
+  void _getKiosks() {
+    KioskApi.fetchKiosks().then((result) {
+      setState(() {
+        kioskList = result;
       });
     });
   }
@@ -59,52 +96,11 @@ class _SummaryPageState extends State<SummaryPage> {
                       height: 20,
                       width: 300,
                       child: Divider(color: Color(0XFFFF6A00))),
-                  Expanded(child: DataTable(
-                    columns: <DataColumn>[
-                      const DataColumn(
-                        label: Text(
-                          'Naam',
-                          style: TextStyle(
-                              color: Color(0xFF575757),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          user!.firstName,
-                          style: const TextStyle(color: Color(0xFF575757)),
-                        ),
-                      ),
-                    ],
-                    rows: <DataRow>[
-                      DataRow(
-                        cells: <DataCell>[
-                          const DataCell(Text('Email',
-                              style: TextStyle(
-                                  color: Color(0xFF575757),
-                                  fontWeight: FontWeight.bold))),
-                          DataCell(Text(user!.email,
-                              style:
-                                  const TextStyle(color: Color(0xFF575757)))),
-                        ],
-                      ),
-                      DataRow(
-                        cells: <DataCell>[
-                          const DataCell(Text('Bedrijf',
-                              style: TextStyle(
-                                  color: Color(0xFF575757),
-                                  fontWeight: FontWeight.bold))),
-                          DataCell(Text(user!.companyID.toString(),
-                              style:
-                                  const TextStyle(color: Color(0xFF575757)))),
-                        ],
-                      ),
-                    ],
-                  )),
+                  MyDataTable(user: user),
                   const SizedBox(
                     height: 50,
                   ),
-                  const MyTable()
+                  MyTable(userKiosks: userKiosks, kioskList: kioskList)
                 ]))));
   }
 }
