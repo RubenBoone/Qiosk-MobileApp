@@ -94,7 +94,7 @@ class _SummaryPageState extends State<SummaryPage> {
                               color: Color(0xFF575757)))),
                   const SizedBox(
                       height: 20,
-                      width: 300,
+                      width: 100,
                       child: Divider(color: Color(0XFFFF6A00))),
                   MyDataTable(user: user),
                   const SizedBox(
