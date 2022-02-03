@@ -2,7 +2,7 @@ class Kiosk {
   int kioskID;
   String name;
   String description;
-  int coordinate;
+  String coordinate;
 
   Kiosk(
       {required this.kioskID,
