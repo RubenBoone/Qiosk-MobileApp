@@ -67,9 +67,11 @@ class _MyTableState extends State<MyTable> {
     return Table(children: [
       for (TimePerKiosk kiosk in timePerKioskList)
         TableRow(children: [
-          Text(kiosk.name,
-              style: const TextStyle(
-                  color: Color(0xFF575757), fontWeight: FontWeight.bold)),
+          Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(kiosk.name,
+                  style: const TextStyle(
+                      color: Color(0xFF575757), fontWeight: FontWeight.bold))),
           Padding(
               padding: const EdgeInsets.all(15.0),
               child: LinearPercentIndicator(
@@ -81,7 +83,7 @@ class _MyTableState extends State<MyTable> {
                 percent: kiosk.percentage,
                 center: Text((kiosk.percentage * 100).toStringAsFixed(2) + "%"),
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: Colors.greenAccent,
+                progressColor: Colors.orangeAccent,
               ))
         ])
     ]);
