@@ -53,7 +53,6 @@ class _MyTableState extends State<MyTable> {
       for (TimePerKiosk kiosk in timePerKioskList) {
         if (kiosk.kioskID == userKiosk.kioskID) {
           kiosk.time = kiosk.time + int.parse(time.inMinutes.toString());
-          print(kiosk.name + " " + kiosk.time.toString());
         }
       }
       totalTime = totalTime + time;

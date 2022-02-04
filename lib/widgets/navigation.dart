@@ -128,8 +128,6 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
       userlogin.password = prefs.getString('password') ?? "";
     });
 
-    print(_widgetOptions);
-
     AuthApi.authenticate(userlogin).then((result) async {
       // call the api to
       if (mounted) {
@@ -143,8 +141,6 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
           prefs.setBool('isActive', userlogin.isActive);
           prefs.setBool('isAdmin', userlogin.isAdmin);
           prefs.setString('token', userlogin.token);
-
-          print("ingelogd");
         });
       }
 
@@ -159,7 +155,6 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
       prefs.remove('isActive');
       prefs.remove('isAdmin');
       prefs.remove('token');
-      print("uitgelogd");
     });
   }
 }
