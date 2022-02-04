@@ -148,7 +148,7 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
         });
       }
 
-      _selectedIndex = 0;
+      _selectedIndex = 2;
     });
   }
 

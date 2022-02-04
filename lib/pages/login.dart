@@ -134,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
       prefs.setString('email', userlogin.email);
       prefs.setString('password', userlogin.password);
     });
+
     widget.onLogin();
   }
 }
