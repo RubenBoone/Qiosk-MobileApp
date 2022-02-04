@@ -55,4 +55,22 @@ class KioskApi {
       throw Exception('Failed to load Kiosks');
     }
   }
+
+  static Future<Kiosk> postKiosk(Kiosk kiosk, String token) async {
+    var url = Uri.parse(server + "/kiosks");
+
+    final response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        body: jsonEncode(kiosk));
+
+    if (response.statusCode == 201) {
+      return Kiosk.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to create kiosk');
+    }
+  }
 }

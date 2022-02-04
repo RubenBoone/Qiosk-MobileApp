@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qiosk/apis/kiosk_api.dart';
+import 'package:qiosk/models/kiosk.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
@@ -11,6 +14,39 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
+  Kiosk kiosk = Kiosk(name: "", description: "", kioskID: 0, coordinate: "");
+  String token = "";
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString('token')!;
+    });
+  }
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController xCoordController = TextEditingController();
+  TextEditingController yCoordController = TextEditingController();
+  TextEditingController radiusController = TextEditingController();
+
+  _saveKiosk() {
+    kiosk.name = nameController.text;
+    kiosk.description = descriptionController.text;
+    kiosk.coordinate = xCoordController.text +
+        "," +
+        yCoordController.text +
+        "," +
+        radiusController.text;
+
+    KioskApi.postKiosk(kiosk, token).then((result) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,86 +80,53 @@ class _AdminPageState extends State<AdminPage> {
                         TextSpan(text: "Om een kiosk toe te voegen: "),
                         TextSpan(
                           text:
-                              'Ga op elk hoekpunt van de te meten zone rond de kiosk staan en vul de coördinaten in.',
+                              'Geef het middelpunt van de kiosk in met een radius',
                           style: TextStyle(fontWeight: FontWeight.normal),
                         )
                       ]))),
                   SizedBox(
                       width: 300,
                       child: TextFormField(
-                          decoration:
-                              const InputDecoration(labelText: 'Kiosknaam'))),
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                              labelText: 'Naam van kiosk'))),
                   SizedBox(
                       width: 300,
                       child: TextFormField(
+                          controller: descriptionController,
                           decoration: const InputDecoration(
-                              labelText: 'Beschrijving'))),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(children: [
-                    SizedBox(
-                        width: 150,
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                                enabled: false, labelText: 'Linkerbovenhoek'))),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Stel hoekpunt in'),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFFFF6A00),
-                          shadowColor: const Color(0XFF575757),
-                        ))
-                  ]),
-                  Row(children: [
-                    SizedBox(
-                        width: 150,
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                                enabled: false,
-                                labelText: 'Rechterbovenhoek'))),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Stel hoekpunt in'),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFFFF6A00),
-                          shadowColor: const Color(0XFF575757),
-                        ))
-                  ]),
-                  Row(children: [
-                    SizedBox(
-                        width: 150,
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                                enabled: false,
-                                labelText: 'Rechteronderhoek'))),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Stel hoekpunt in'),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFFFF6A00),
-                          shadowColor: const Color(0XFF575757),
-                        ))
-                  ]),
-                  Row(children: [
-                    SizedBox(
-                        width: 150,
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                                enabled: false, labelText: 'Linkeronderhoek'))),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Stel hoekpunt in'),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0XFFFF6A00),
-                          shadowColor: const Color(0XFF575757),
-                        ))
-                  ]),
+                              labelText: 'Beschrijving van kiosk'))),
+                  SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                          controller: xCoordController,
+                          keyboardType: TextInputType.number,
+                          enableInteractiveSelection: false,
+                          decoration: const InputDecoration(
+                              labelText: 'X-cöordinaat'))),
+                  SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                          controller: yCoordController,
+                          keyboardType: TextInputType.number,
+                          enableInteractiveSelection: false,
+                          decoration: const InputDecoration(
+                              labelText: 'Y-cöordinaat'))),
+                  SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                          controller: radiusController,
+                          keyboardType: TextInputType.number,
+                          enableInteractiveSelection: false,
+                          decoration:
+                              const InputDecoration(labelText: 'Radius'))),
                   const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _saveKiosk();
+                      },
                       child: const Text('Voeg kiosk toe'),
                       style: ElevatedButton.styleFrom(
                         primary: const Color(0XFFFF6A00),
