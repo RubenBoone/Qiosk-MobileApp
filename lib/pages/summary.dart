@@ -51,7 +51,7 @@ class _SummaryPageState extends State<SummaryPage> {
     _getKiosks();
   }
 
-  void _getUser(id, token) async {
+  _getUser(id, token) async {
     await KioskApi.fetchUser(id, token).then((result) {
       setState(() {
         user = result;
@@ -59,7 +59,7 @@ class _SummaryPageState extends State<SummaryPage> {
     });
   }
 
-  void _getUserKiosks(userid, token) async {
+  _getUserKiosks(userid, token) async {
     await KioskApi.fetchUserKiosk(userid, token).then((result) {
       setState(() {
         userKiosks = result;
@@ -67,7 +67,7 @@ class _SummaryPageState extends State<SummaryPage> {
     });
   }
 
-  void _getKiosks() {
+  _getKiosks() {
     KioskApi.fetchKiosks().then((result) {
       setState(() {
         kioskList = result;
