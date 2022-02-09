@@ -42,9 +42,9 @@ class HomePage extends StatelessWidget {
                   const Center(
                       child: Text(
                     "Welkom in het Experience Center van Van Roey! In ons Experience Center zijn talloze toepassingen te ervaren en te aanschouwen om als bedrijf een digitale dynamiek op te bouwen."
-                        '\n\n'
-                        "Geen futuristische fictie van wat zou kunnen komen, wel een actieve en interactieve voorstelling van toekomstbestendige technologie die al marktmatuur is, voor democratische prijzen."
-                        '\n',
+                    '\n\n'
+                    "Geen futuristische fictie van wat zou kunnen komen, wel een actieve en interactieve voorstelling van toekomstbestendige technologie die al marktmatuur is, voor democratische prijzen."
+                    '\n',
                     style: TextStyle(
                         height: 1.3, fontSize: 15, color: Color(0xFF575757)),
                   )),

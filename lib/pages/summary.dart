@@ -33,6 +33,7 @@ class _SummaryPageState extends State<SummaryPage> {
   String token = "";
   List<UserKiosk> userKiosks = [];
   List<Kiosk> kioskList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -71,36 +72,45 @@ class _SummaryPageState extends State<SummaryPage> {
     KioskApi.fetchKiosks().then((result) {
       setState(() {
         kioskList = result;
+        isLoading = false;
       });
     });
   }
 
+  loadContent() {
+    if (isLoading) {
+      return const Center(child: Text("Data aan het laden..."));
+    } else {
+      return Scaffold(
+          backgroundColor: const Color(0xFFE4E4E4),
+          body: Container(
+              padding: const EdgeInsets.all(5.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+              child: ScrollConfiguration(
+                  behavior: MyBehavior(),
+                  child: ListView(children: [
+                    const Center(
+                        child: Text("Bezoekersrapport",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF575757)))),
+                    const SizedBox(
+                        height: 20,
+                        width: 100,
+                        child: Divider(color: Color(0XFFFF6A00))),
+                    MyDataTable(user: user),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    MyTable(userKiosks: userKiosks, kioskList: kioskList)
+                  ]))));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color(0xFFE4E4E4),
-        body: Container(
-            padding: const EdgeInsets.all(5.0),
-            margin:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
-            child: ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: ListView(children: [
-                  const Center(
-                      child: Text("Bezoekersrapport",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF575757)))),
-                  const SizedBox(
-                      height: 20,
-                      width: 100,
-                      child: Divider(color: Color(0XFFFF6A00))),
-                  MyDataTable(user: user),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  MyTable(userKiosks: userKiosks, kioskList: kioskList)
-                ]))));
+    return loadContent();
   }
 }

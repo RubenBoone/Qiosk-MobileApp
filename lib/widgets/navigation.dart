@@ -68,10 +68,9 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   }
 
   String? get _logText {
-    if (userlogin.token != "") {
-      return 'Afmelden';
+    if (userlogin.token.length > 2) {
+      return "Afmelden";
     }
-    // return null
     return "Aanmelden";
   }
 
@@ -110,7 +109,8 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
                 label: 'Admin',
               ),
             BottomNavigationBarItem(
-              icon: Icon(userlogin.token == "" ? Icons.login : Icons.logout),
+              icon:
+                  Icon(userlogin.token.length > 2 ? Icons.login : Icons.logout),
               label: _logText,
             )
           ],

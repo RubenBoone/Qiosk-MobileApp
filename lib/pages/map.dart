@@ -77,24 +77,4 @@ class _MapPageState extends State<MapPage> {
           ),
         ));
   }
-
-  _kioskListItems() {
-    // FutureBuilder(
-    //     future: KioskApi.fetchKiosks(),
-    //   builder: (context, AsyncSnapshot snapshot) {
-    //   if (!snapshot.hasData) {
-    //     return const Center(child: CircularProgressIndicator());
-    //   } else {
-    //     return ListView.builder(
-    //         itemCount: kioskList.length,
-    //         itemBuilder: (BuildContext context, int index) {
-    //           return Text(kioskList[index].name);
-    //         });
-    //   }
-    // });
-
-    for (var kiosk in kioskList) {
-      Text(kiosk.name);
-    }
-  }
 }
