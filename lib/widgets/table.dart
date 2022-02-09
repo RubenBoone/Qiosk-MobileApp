@@ -20,6 +20,7 @@ class _MyTableState extends State<MyTable> {
   @override
   void initState() {
     super.initState();
+    timePerKioskList = [];
     if (widget.userKiosks.isNotEmpty) {
       _processKiosks();
     }
@@ -59,6 +60,7 @@ class _MyTableState extends State<MyTable> {
     }
     for (TimePerKiosk kiosk in timePerKioskList) {
       kiosk.percentage = kiosk.time / int.parse(totalTime.inMinutes.toString());
+      print(kiosk.percentage);
     }
   }
 

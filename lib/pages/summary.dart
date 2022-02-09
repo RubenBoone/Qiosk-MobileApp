@@ -33,7 +33,7 @@ class _SummaryPageState extends State<SummaryPage> {
   String token = "";
   List<UserKiosk> userKiosks = [];
   List<Kiosk> kioskList = [];
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   void initState() {
