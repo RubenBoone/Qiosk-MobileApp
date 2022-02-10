@@ -33,62 +33,48 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const Text("Grondplan",
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF575757))),
-          const SizedBox(
-              height: 20, width: 300, child: Divider(color: Color(0XFFFF6A00))),
-          Image.asset("assets/images/Blueprint.png"),
-          const Text("Kiosken",
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF575757))),
-          const SizedBox(
-              height: 20, width: 300, child: Divider(color: Color(0XFFFF6A00))),
-          for (var kiosk in kioskList)
-            Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Column(
-                      children: [
-                        Text(
-                          kiosk.name,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                        Text(kiosk.description)
-                      ],
-                    ))
-              ],
-            )
-        ],
-      ),
-    );
-  }
-
-  _kioskListItems() {
-    // FutureBuilder(
-    //     future: KioskApi.fetchKiosks(),
-    //   builder: (context, AsyncSnapshot snapshot) {
-    //   if (!snapshot.hasData) {
-    //     return const Center(child: CircularProgressIndicator());
-    //   } else {
-    //     return ListView.builder(
-    //         itemCount: kioskList.length,
-    //         itemBuilder: (BuildContext context, int index) {
-    //           return Text(kioskList[index].name);
-    //         });
-    //   }
-    // });
-
-    for (var kiosk in kioskList) {
-      Text(kiosk.name);
-    }
+    return Scaffold(
+        backgroundColor: const Color(0xFFE4E4E4),
+        body: Center(
+          child: Column(
+            children: [
+              const Text("Grondplan",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF575757))),
+              const SizedBox(
+                  height: 20,
+                  width: 300,
+                  child: Divider(color: Color(0XFFFF6A00))),
+              Image.asset("assets/images/Blueprint.png"),
+              const Text("Kiosken",
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF575757))),
+              const SizedBox(
+                  height: 20,
+                  width: 300,
+                  child: Divider(color: Color(0XFFFF6A00))),
+              for (var kiosk in kioskList)
+                Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Column(
+                          children: [
+                            Text(
+                              kiosk.name,
+                              style: const TextStyle(fontSize: 24),
+                            ),
+                            Text(kiosk.description)
+                          ],
+                        ))
+                  ],
+                )
+            ],
+          ),
+        ));
   }
 }

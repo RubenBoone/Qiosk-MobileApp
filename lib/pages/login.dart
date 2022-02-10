@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
       token: "");
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String errorMsg = "";
   @override
   // ignore: must_call_super
   void initState() {
@@ -48,12 +49,10 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  String? get _errorText {
-    if (userlogin.password.trim() != "" && userlogin.token == "") {
-      return 'Email of wachtwoord is onjuist';
-    }
-    // return null
-    return null;
+  _errorText() {
+    setState(() {
+      errorMsg = 'Email en/of wachtwoord is onjuist';
+    });
   }
 
   @override
@@ -91,29 +90,41 @@ class _LoginPageState extends State<LoginPage> {
                             obscureText:
                                 !_passwordVisible, //This will obscure text dynamically
                             decoration: InputDecoration(
-                                labelText: 'Wachtwoord',
-                                // Here is key idea
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    // Based on passwordVisible state choose the icon
-                                    _passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Theme.of(context).primaryColorDark,
-                                  ),
-                                  onPressed: () {
-                                    // Update the state i.e. toogle the state of passwordVisible variable
-                                    setState(() {
-                                      _passwordVisible = !_passwordVisible;
-                                    });
-                                  },
+                              labelText: 'Wachtwoord',
+                              // Here is key idea
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  // Based on passwordVisible state choose the icon
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
                                 ),
-                                errorText: _errorText))),
+                                onPressed: () {
+                                  // Update the state i.e. toogle the state of passwordVisible variable
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible;
+                                  });
+                                },
+                              ),
+                            ))),
+                    if (errorMsg != "")
+                      Container(
+                          margin: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(
+                            errorMsg,
+                            style: const TextStyle(color: Colors.red),
+                          )),
                     Container(
                         margin: const EdgeInsets.only(top: 10),
                         child: Center(
                             child: ElevatedButton(
                                 onPressed: () {
+                                  if (emailController.text.trim() == "" ||
+                                      passwordController.text.trim() == "") {
+                                    _errorText();
+                                    return;
+                                  }
                                   _login();
                                 },
                                 child: const Text('Inloggen'),
@@ -134,6 +145,15 @@ class _LoginPageState extends State<LoginPage> {
       prefs.setString('email', userlogin.email);
       prefs.setString('password', userlogin.password);
     });
+
     widget.onLogin();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (prefs.getString('token') == "1") {
+      setState(() {
+        errorMsg = "Email en/of wachtwoord is onjuist";
+      });
+    }
   }
 }

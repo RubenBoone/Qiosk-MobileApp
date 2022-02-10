@@ -20,7 +20,10 @@ class _MyTableState extends State<MyTable> {
   @override
   void initState() {
     super.initState();
-    _processKiosks();
+    timePerKioskList = [];
+    if (widget.userKiosks.isNotEmpty) {
+      _processKiosks();
+    }
   }
 
   _processKiosks() {
@@ -51,41 +54,56 @@ class _MyTableState extends State<MyTable> {
       for (TimePerKiosk kiosk in timePerKioskList) {
         if (kiosk.kioskID == userKiosk.kioskID) {
           kiosk.time = kiosk.time + int.parse(time.inMinutes.toString());
-          print(kiosk.name + " " + kiosk.time.toString());
         }
       }
       totalTime = totalTime + time;
     }
     for (TimePerKiosk kiosk in timePerKioskList) {
       kiosk.percentage = kiosk.time / int.parse(totalTime.inMinutes.toString());
+      print(kiosk.percentage);
+    }
+  }
+
+  _renderBars() {
+    if (widget.userKiosks.isEmpty) {
+      return const Padding(
+          padding: EdgeInsets.all(18),
+          child: Text(
+            "No data available",
+            style: TextStyle(fontSize: 32),
+          ));
+    } else {
+      return Table(children: [
+        for (TimePerKiosk kiosk in timePerKioskList)
+          TableRow(children: [
+            Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(kiosk.name,
+                    style: const TextStyle(
+                        color: Color(0xFF575757),
+                        fontWeight: FontWeight.bold))),
+            Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: LinearPercentIndicator(
+                  //width = MediaQuery.of(context).size.width - 300
+                  width: 100,
+                  animation: true,
+                  lineHeight: 20.0,
+                  animationDuration: 2000,
+                  percent: kiosk.percentage,
+                  center:
+                      Text((kiosk.percentage * 100).toStringAsFixed(2) + "%"),
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  progressColor: Colors.orangeAccent,
+                ))
+          ])
+      ]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     _processKiosks();
-    return Table(children: [
-      for (TimePerKiosk kiosk in timePerKioskList)
-        TableRow(children: [
-          Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(kiosk.name,
-                  style: const TextStyle(
-                      color: Color(0xFF575757), fontWeight: FontWeight.bold))),
-          Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: LinearPercentIndicator(
-                //width = MediaQuery.of(context).size.width - 300
-                width: 120,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 2000,
-                percent: kiosk.percentage,
-                center: Text((kiosk.percentage * 100).toStringAsFixed(2) + "%"),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: Colors.orangeAccent,
-              ))
-        ])
-    ]);
+    return _renderBars();
   }
 }

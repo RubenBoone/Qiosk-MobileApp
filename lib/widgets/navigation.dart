@@ -68,10 +68,9 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
   }
 
   String? get _logText {
-    if (userlogin.token != "") {
-      return 'Afmelden';
+    if (userlogin.token.length > 2) {
+      return "Afmelden";
     }
-    // return null
     return "Aanmelden";
   }
 
@@ -110,7 +109,8 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
                 label: 'Admin',
               ),
             BottomNavigationBarItem(
-              icon: Icon(userlogin.token == "" ? Icons.login : Icons.logout),
+              icon:
+                  Icon(userlogin.token.length > 2 ? Icons.login : Icons.logout),
               label: _logText,
             )
           ],
@@ -128,8 +128,6 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
       userlogin.password = prefs.getString('password') ?? "";
     });
 
-    print(_widgetOptions);
-
     AuthApi.authenticate(userlogin).then((result) async {
       // call the api to
       if (mounted) {
@@ -143,12 +141,10 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
           prefs.setBool('isActive', userlogin.isActive);
           prefs.setBool('isAdmin', userlogin.isAdmin);
           prefs.setString('token', userlogin.token);
-
-          print("ingelogd");
         });
       }
 
-      _selectedIndex = 0;
+      _selectedIndex = 2;
     });
   }
 
@@ -159,7 +155,6 @@ class _BottomNavigationTemplateState extends State<BottomNavigationTemplate> {
       prefs.remove('isActive');
       prefs.remove('isAdmin');
       prefs.remove('token');
-      print("uitgelogd");
     });
   }
 }

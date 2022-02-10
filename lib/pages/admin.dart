@@ -16,6 +16,8 @@ class AdminPage extends StatefulWidget {
 class _AdminPageState extends State<AdminPage> {
   Kiosk kiosk = Kiosk(name: "", description: "", kioskID: 0, coordinate: "");
   String token = "";
+  String errorMsg = "";
+  String successMsg = "";
   @override
   void initState() {
     super.initState();
@@ -36,15 +38,56 @@ class _AdminPageState extends State<AdminPage> {
   TextEditingController radiusController = TextEditingController();
 
   _saveKiosk() {
+    bool valid = true;
+    setState(() {
+      errorMsg = errorMsg + "";
+      successMsg = "";
+    });
     kiosk.name = nameController.text;
     kiosk.description = descriptionController.text;
-    kiosk.coordinate = xCoordController.text +
+
+    try {
+      int.parse(xCoordController.text);
+      int.parse(yCoordController.text);
+      int.parse(radiusController.text);
+
+      if (nameController.text == "" || descriptionController.text == "") {
+        setState(() {
+          errorMsg = "Vul de naam en beschrijving in.";
+          successMsg = "";
+          valid = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        if (nameController.text == "" || descriptionController.text == "") {
+          errorMsg =
+              "Vul de naam en beschrijving in en X-coördinaat, Y-coördinaat en radius moeten een getal / ingevuld zijn.";
+        } else {
+          errorMsg =
+              "X-coördinaat, Y-coördinaat en radius moeten een getal / ingevuld zijn.";
+          successMsg = "";
+        }
+        valid = false;
+      });
+    }
+
+    if (!valid) {
+      return;
+    }
+
+    setState(() {
+      errorMsg = "";
+      successMsg = "Kiosk toegevoegd!";
+    });
+
+    kiosk.coordinate = int.parse(xCoordController.text).toString() +
         "," +
         yCoordController.text +
         "," +
         radiusController.text;
 
-    KioskApi.postKiosk(kiosk, token).then((result) {});
+    if (valid) KioskApi.postKiosk(kiosk, token).then((result) {});
   }
 
   @override
@@ -123,6 +166,20 @@ class _AdminPageState extends State<AdminPage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  if (successMsg != "")
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Text(
+                          successMsg,
+                          style: const TextStyle(color: Colors.green),
+                        )),
+                  if (errorMsg != "")
+                    Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Text(
+                          errorMsg,
+                          style: const TextStyle(color: Colors.red),
+                        )),
                   ElevatedButton(
                       onPressed: () {
                         _saveKiosk();
